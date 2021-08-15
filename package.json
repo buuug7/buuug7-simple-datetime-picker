@@ -4,8 +4,10 @@
   "version": "0.3.3",
   "description": "uniApp 简单的日期时间选择器, 可选择年, 月, 日, 时, 分",
   "keywords": [
+    "时间",
+    "日期",
+    "时间选择器",
     "日期时间选择器",
-    "日期时间",
     "datetime"
 ],
   "repository": "",
