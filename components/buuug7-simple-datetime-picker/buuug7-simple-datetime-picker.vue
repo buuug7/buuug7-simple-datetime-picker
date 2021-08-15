@@ -24,27 +24,27 @@
       <view class="picker-body">
         <picker-view :value="value" @change="_onChange">
           <picker-view-column>
-            <view class="column-item" v-for="item in years">
+            <view class="column-item" v-for="item in years" :key="item">
               {{ item }}年
             </view>
           </picker-view-column>
           <picker-view-column>
-            <view class="column-item" v-for="item in months">
+            <view class="column-item" v-for="item in months" :key="item">
               {{ item | formatNum }}月
             </view>
           </picker-view-column>
           <picker-view-column>
-            <view class="column-item" v-for="item in days">
+            <view class="column-item" v-for="item in days" :key="item">
               {{ item | formatNum }}日
             </view>
           </picker-view-column>
           <picker-view-column>
-            <view class="column-item" v-for="item in hours">
+            <view class="column-item" v-for="item in hours" :key="item">
               {{ item | formatNum }}时
             </view>
           </picker-view-column>
           <picker-view-column>
-            <view class="column-item" v-for="item in minutes">
+            <view class="column-item" v-for="item in minutes" :key="item">
               {{ item | formatNum }}分
             </view>
           </picker-view-column>
@@ -55,24 +55,24 @@
 </template>
 
 <script>
-const formatNum = num => {
+const formatNum = (num) => {
   return num < 10 ? "0" + num : num + "";
 };
 export default {
-  name: "SimpleDatetimePicker",
+  name: "buuug7-simple-datetime-picker",
   props: {
     startYear: {
       type: Number,
-      default: 2000
+      default: 2000,
     },
     endYear: {
       type: Number,
-      default: 2030
+      default: 2030,
     },
     color: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   data() {
     return {
@@ -88,7 +88,7 @@ export default {
       day: "",
       hour: "",
       minute: "",
-      value: [0, 0, 0, 0, 0]
+      value: [0, 0, 0, 0, 0],
     };
   },
   mounted() {
@@ -97,12 +97,12 @@ export default {
   watch: {
     month() {
       this.initDays();
-    }
+    },
   },
   filters: {
     formatNum(num) {
       return formatNum(num);
-    }
+    },
   },
   methods: {
     init() {
@@ -190,12 +190,12 @@ export default {
         month: formatNum(this.month),
         day: formatNum(this.day),
         hour: formatNum(this.hour),
-        minute: formatNum(this.minute)
+        minute: formatNum(this.minute),
       };
       this.$emit("submit", result);
       this.hide();
-    }
-  }
+    },
+  },
 };
 </script>
 
