@@ -1,6 +1,6 @@
 # uniApp 简单的日期时间选择器
 
-uniApp 简单的日期时间选择器, 可选择年, 月, 日, 时, 分.
+uniApp 日期时间选择器, 可选择年, 月, 日, 时, 分.
 
 ## 安装
 
@@ -11,16 +11,18 @@ uniApp 简单的日期时间选择器, 可选择年, 月, 日, 时, 分.
 在 template 中：
 
 ```vue
-<button type="default" @click="openDatetimePicker">
-  open picker
-</button>
-<SimpleDateTimePicker
-  ref="myPicker"
-  @submit="handleSubmit"
-  :start-year="2000"
-  :end-year="2030"
-  color="red"
-/>
+<template>
+  <button type="default" @click="openDatetimePicker">
+    open picker
+  </button>
+  <SimpleDateTimePicker
+    ref="myPicker"
+    @submit="handleSubmit"
+    :start-year="2000"
+    :end-year="2030"
+    color="red"
+  />
+</template>
 ```
 
 在 script 中：
@@ -59,9 +61,7 @@ export default {
 };
 ```
 
-> Note: 不要把组件放 swiper 里面或者 v-for 里面等, 别把插件放在其它组件里面去用，最好放在当前页面的 view，。
-
-> 通常情况下打开 picker 需要调用`this.$refs.refName.show()`，在选择完毕后 picker 会自动隐藏，不需要调用`this.$refs.refName.hide()`来手动隐藏。
+> Note: 不要把组件放 swiper 里面或者 v-for 里面等, 别把插件放在其它组件里面去用，最好放在当前页面的 view. 通常情况下打开 picker 需要调用`this.$refs.refName.show()`，在选择完毕后 picker 会自动隐藏，不需要调用`this.$refs.refName.hide()`来手动隐藏。
 
 ## 属性说明
 
