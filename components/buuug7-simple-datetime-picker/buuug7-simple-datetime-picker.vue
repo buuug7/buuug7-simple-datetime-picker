@@ -8,18 +8,8 @@
     ></view>
     <view class="wrap" :class="{ show: open }">
       <view class="picker-header" @touchmove.stop.prevent catchtouchmove="true">
-        <view
-          class="btn-picker cancel"
-          :style="{ color: color }"
-          @click="open = false"
-          >取消</view
-        >
-        <view
-          class="btn-picker submit"
-          :style="{ backgroundColor: color }"
-          @click="_onSubmit"
-          >确定</view
-        >
+        <view class="btn-picker cancel" @click="open = false">取消</view>
+        <view class="btn-picker submit" @click="_onSubmit">确定</view>
       </view>
       <view class="picker-body">
         <picker-view :value="value" @change="_onChange">
@@ -68,10 +58,6 @@ export default {
     endYear: {
       type: Number,
       default: 2030,
-    },
-    color: {
-      type: String,
-      default: "",
     },
   },
   data() {
@@ -269,10 +255,11 @@ $primary: #488ee9;
     line-height: 2;
     -webkit-tap-highlight-color: transparent;
     overflow: hidden;
-    background-color: #f8f8f8;
+    background-color: #eee;
     font-size: 14px;
-    border-radius: 2px;
-    color: $primary;
+    // border-radius: 2px;
+    color: #000;
+    cursor: pointer;
   }
   .btn-picker.submit {
     background-color: $primary;

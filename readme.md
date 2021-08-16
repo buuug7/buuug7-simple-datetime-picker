@@ -2,6 +2,11 @@
 
 uniApp 日期时间选择器, 可选择年, 月, 日, 时, 分.
 
+## screenshot
+
+<p>
+  <img align=top src="https://img-cdn-aliyun.dcloud.net.cn/stream/plugin_screens/19363640-a869-11e9-a6c7-7fb99abe2bbf_0.png?1629144139" width="300px" height="auto">
+</p>
 ## 安装
 
 推荐从[dcloud 插件市场](https://ext.dcloud.net.cn/plugin?id=592) 安装.
@@ -12,16 +17,15 @@ uniApp 日期时间选择器, 可选择年, 月, 日, 时, 分.
 
 ```vue
 <template>
-  <button type="default" @click="openDatetimePicker">
-    open picker
-  </button>
-  <SimpleDateTimePicker
-    ref="myPicker"
-    @submit="handleSubmit"
-    :start-year="2000"
-    :end-year="2030"
-    color="red"
-  />
+  <view>
+    <button type="default" @click="openDatetimePicker">open picker</button>
+    <SimpleDateTimePicker
+      ref="myPicker"
+      @submit="handleSubmit"
+      :start-year="2000"
+      :end-year="2030"
+    />
+  </view>
 </template>
 ```
 
@@ -68,5 +72,4 @@ export default {
 - `start-year`，类型 `number`，选择开始年份
 - `end-year`，类型 `number`, 选择结束年份
 - `@submit`, 类型 `function`, 监听选择事件，
-- `color`, 类型`string`, 选择按钮颜色
 - `ref`，指定该 picker 的引用，方便打开关闭
