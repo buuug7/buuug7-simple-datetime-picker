@@ -1,10 +1,10 @@
-# 简单的日期时间选择器
+# uniApp 简单的日期时间选择器
 
-[uniApp](https://github.com/dcloudio/uni-app)支持同时选择日期和时间，时间精度只支持选择到分钟。
+uniApp 简单的日期时间选择器, 可选择年, 月, 日, 时, 分.
 
 ## 安装
 
-推荐从[dcloud 插件市场](https://ext.dcloud.net.cn/plugin?id=592) 安装插件
+推荐从[dcloud 插件市场](https://ext.dcloud.net.cn/plugin?id=592) 安装.
 
 ## 用法
 
@@ -23,7 +23,7 @@
 />
 ```
 
-在 javascript 中：
+在 script 中：
 
 > 该插件遵循 easycom 规范, 你可以不用在 JavaScript 中导入就可以使用 `<buuug7-simple-datetime-picker ... />` 该组件
 
