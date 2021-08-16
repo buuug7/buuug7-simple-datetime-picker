@@ -7,6 +7,7 @@ uniApp 日期时间选择器, 可选择年, 月, 日, 时, 分.
 <p>
   <img align=top src="https://img-cdn-aliyun.dcloud.net.cn/stream/plugin_screens/19363640-a869-11e9-a6c7-7fb99abe2bbf_0.png?1629144139" width="300px" height="auto">
 </p>
+
 ## 安装
 
 推荐从[dcloud 插件市场](https://ext.dcloud.net.cn/plugin?id=592) 安装.
