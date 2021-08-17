@@ -32,7 +32,7 @@ uniApp 日期时间选择器, 可选择年, 月, 日, 时, 分.
 
 在 script 中：
 
-> 该插件遵循 easycom 规范, 你可以不用在 JavaScript 中导入就可以使用 `<buuug7-simple-datetime-picker ... />` 该组件
+> 该插件遵循 easycom 规范, 不用显式导入就可以使用 `<buuug7-simple-datetime-picker ... />` 该组件
 
 ```javascript
 import SimpleDateTimePicker from "uni_modules/buuug7-simple-datetime-picker/components/buuug7-simple-datetime-picker/buuug7-simple-datetime-picker.vue";
@@ -66,7 +66,7 @@ export default {
 };
 ```
 
-> Note: 不要把组件放 swiper 里面或者 v-for 里面等, 别把插件放在其它组件里面去用，最好放在当前页面的 view. 通常情况下打开 picker 需要调用`this.$refs.refName.show()`，在选择完毕后 picker 会自动隐藏，不需要调用`this.$refs.refName.hide()`来手动隐藏。
+> Note: 不要把组件放 swiper 里面或者 v-for 里面等, 最好放在页面根部. 通常情况下打开 picker 需要调用`this.$refs.refName.show()`, 在选择完毕后 picker 会自动隐藏，不需要调用`this.$refs.refName.hide()`来手动隐藏。
 
 ## 属性说明
 
