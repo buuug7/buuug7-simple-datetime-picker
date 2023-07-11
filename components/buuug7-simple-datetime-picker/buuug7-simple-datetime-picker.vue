@@ -1,11 +1,12 @@
 <template>
-  <view class="datetime-picker">
+  <view class="buuug7-simple-datetime-picker" v-if="done">
     <view
       class="mask"
       :class="{ show: open }"
       @touchmove.stop.prevent
       catchtouchmove="true"
-    ></view>
+    >
+    </view>
     <view class="wrap" :class="{ show: open }">
       <view class="picker-header" @touchmove.stop.prevent catchtouchmove="true">
         <view class="btn-picker cancel" @click="open = false">取消</view>
@@ -13,29 +14,34 @@
       </view>
       <view class="picker-body">
         <picker-view :value="value" @change="_onChange">
-          <picker-view-column>
+          <picker-view-column v-if="timeHide[0]">
             <view class="column-item" v-for="item in years" :key="item">
-              {{ item + "年" }}
+              {{ item + timeLabel[0] }}
             </view>
           </picker-view-column>
-          <picker-view-column>
+          <picker-view-column v-if="timeHide[1]">
             <view class="column-item" v-for="item in months" :key="item">
-              {{ formatNum(item) + "月" }}
+              {{ formatNum(item) + timeLabel[1] }}
             </view>
           </picker-view-column>
-          <picker-view-column>
+          <picker-view-column v-if="timeHide[2]">
             <view class="column-item" v-for="item in days" :key="item">
-              {{ formatNum(item) + "日" }}
+              {{ formatNum(item) + timeLabel[2] }}
             </view>
           </picker-view-column>
-          <picker-view-column>
+          <picker-view-column v-if="timeHide[3]">
             <view class="column-item" v-for="item in hours" :key="item">
-              {{ formatNum(item) + "时" }}
+              {{ formatNum(item) + timeLabel[3] }}
             </view>
           </picker-view-column>
-          <picker-view-column>
+          <picker-view-column v-if="timeHide[4]">
             <view class="column-item" v-for="item in minutes" :key="item">
-              {{ formatNum(item) + "分" }}
+              {{ formatNum(item) + timeLabel[4] }}
+            </view>
+          </picker-view-column>
+          <picker-view-column v-if="timeHide[5]">
+            <view class="column-item" v-for="item in seconds" :key="item">
+              {{ formatNum(item) + timeLabel[5] }}
             </view>
           </picker-view-column>
         </picker-view>
@@ -54,7 +60,19 @@ export default {
     },
     endYear: {
       type: Number,
-      default: 2030,
+      default: 2099,
+    },
+    timeLabel: {
+      type: Array,
+      default: () => ["年", "月", "日", "时", "分", "秒"],
+    },
+    timeHide: {
+      type: Array,
+      default: () => [true, true, true, true, true, false],
+    },
+    timeInit: {
+      type: Number,
+      default: new Date().valueOf(),
     },
   },
 
@@ -66,14 +84,22 @@ export default {
       days: [],
       hours: [],
       minutes: [],
-      currentDate: new Date(),
+      seconds: [],
       year: "",
       month: "",
       day: "",
       hour: "",
       minute: "",
-      value: [0, 0, 0, 0, 0],
+      second: "",
+      value: [0, 0, 0, 0, 0, 0],
+      done: false,
     };
+  },
+
+  computed: {
+    currentDatetime() {
+      return new Date(this.timeInit);
+    },
   },
 
   mounted() {
@@ -93,14 +119,16 @@ export default {
       this.initDays();
       this.initHours();
       this.initMinutes();
+      this.initSeconds();
       this.setSelectValue();
+      this.done = true;
     },
 
     initYears() {
       const years = [];
       for (let year = this.startYear; year <= this.endYear; year++) {
         years.push(year);
-        if (this.currentDate.getFullYear() === year) {
+        if (this.currentDatetime.getFullYear() === year) {
           this.$set(this.value, 0, year - this.startYear);
         }
       }
@@ -111,7 +139,7 @@ export default {
       const months = [];
       for (let month = 1; month <= 12; month++) {
         months.push(month);
-        if (this.currentDate.getMonth() + 1 === month) {
+        if (this.currentDatetime.getMonth() + 1 === month) {
           this.$set(this.value, 1, month - 1);
         }
       }
@@ -126,7 +154,7 @@ export default {
       const totalDays = new Date(selectedYear, selectedMonth, 0).getDate();
       for (let day = 1; day <= totalDays; day++) {
         days.push(day);
-        if (this.currentDate.getDate() === day) {
+        if (this.currentDatetime.getDate() === day) {
           this.$set(value, 2, day - 1);
         }
       }
@@ -137,7 +165,7 @@ export default {
       const hours = [];
       for (let hour = 0; hour <= 23; hour++) {
         hours.push(hour);
-        if (this.currentDate.getHours() === hour) {
+        if (this.currentDatetime.getHours() === hour) {
           this.$set(this.value, 3, hour);
         }
       }
@@ -148,11 +176,22 @@ export default {
       const minutes = [];
       for (let minute = 0; minute < 60; minute++) {
         minutes.push(minute);
-        if (this.currentDate.getMinutes() === minute) {
+        if (this.currentDatetime.getMinutes() === minute) {
           this.$set(this.value, 4, minute);
         }
       }
       this.minutes = minutes;
+    },
+
+    initSeconds() {
+      const seconds = [];
+      for (let second = 0; second < 60; second++) {
+        seconds.push(second);
+        if (this.currentDatetime.getSeconds() === second) {
+          this.$set(this.value, 5, second);
+        }
+      }
+      this.seconds = seconds;
     },
 
     show() {
@@ -176,17 +215,30 @@ export default {
       this.day = this.days[v[2]];
       this.hour = this.hours[v[3]];
       this.minute = this.minutes[v[4]];
+      this.second = this.seconds[v[5]];
     },
 
     _onSubmit() {
-      const { year, month, day, hour, minute, formatNum } = this;
+      const {
+        year,
+        month,
+        day,
+        hour,
+        minute,
+        second,
+        formatNum,
+        timeHide,
+        timeLabel,
+      } = this;
       const result = {
-        year: formatNum(year),
-        month: formatNum(month),
-        day: formatNum(day),
-        hour: formatNum(hour),
-        minute: formatNum(minute),
+        year: timeHide[0] ? formatNum(year) : "",
+        month: timeHide[1] ? formatNum(month) : "",
+        day: timeHide[2] ? formatNum(day) : "",
+        hour: timeHide[3] ? formatNum(hour) : "",
+        minute: timeHide[4] ? formatNum(minute) : "",
+        second: timeHide[5] ? formatNum(second) : "",
       };
+
       this.$emit("submit", result);
       this.hide();
     },
@@ -202,7 +254,7 @@ export default {
 $transition: all 0.3s ease;
 $primary: #488ee9;
 
-.datetime-picker {
+.buuug7-simple-datetime-picker {
   position: relative;
   z-index: 999;
   picker-view {
@@ -215,7 +267,7 @@ $primary: #488ee9;
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.4);
     visibility: hidden;
     opacity: 0;
     transition: $transition;
@@ -271,7 +323,7 @@ $primary: #488ee9;
     overflow: hidden;
     background-color: #eee;
     font-size: 14px;
-    // border-radius: 2px;
+    border-radius: 3px;
     color: #000;
     cursor: pointer;
   }

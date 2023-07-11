@@ -1,6 +1,6 @@
 # uniApp 简单的日期时间选择器
 
-uniApp 日期时间选择器, 可选择年, 月, 日, 时, 分.
+uniApp 日期时间选择器, 可选择年, 月, 日, 时, 分, 秒.
 
 ## screenshot
 
@@ -20,11 +20,14 @@ uniApp 日期时间选择器, 可选择年, 月, 日, 时, 分.
 <template>
   <view>
     <button type="default" @click="openDatetimePicker">open picker</button>
-    <SimpleDateTimePicker
+    <buuug7-simple-datetime-picker
       ref="myPicker"
       @submit="handleSubmit"
       :start-year="2000"
-      :end-year="2030"
+      :end-year="2099"
+      :time-init="1688860800000"
+      :time-hide="[true, true, true, true, true, false]"
+      :time-label="['年', '月', '日', '时', '分', '秒']"
     />
   </view>
 </template>
@@ -32,15 +35,11 @@ uniApp 日期时间选择器, 可选择年, 月, 日, 时, 分.
 
 在 script 中：
 
-> 该插件遵循 easycom 规范, 不用显式导入就可以使用 `<buuug7-simple-datetime-picker ... />` 该组件
+- 该插件遵循 easycom 规范, 不用显式导入就可以使用 `<buuug7-simple-datetime-picker />`
+- 如需显式导入可以使用`import SimpleDateTimePicker from "uni_modules/buuug7-simple-datetime-picker/components/buuug7-simple-datetime-picker/buuug7-simple-datetime-picker.vue";`
 
 ```javascript
-import SimpleDateTimePicker from "uni_modules/buuug7-simple-datetime-picker/components/buuug7-simple-datetime-picker/buuug7-simple-datetime-picker.vue";
-
 export default {
-  components: {
-    SimpleDateTimePicker,
-  },
   data() {
     return {
       birthday: "",
@@ -58,9 +57,9 @@ export default {
     },
 
     handleSubmit(e) {
-      // {year: "2019", month: "07", day: "17", hour: "15", minute: "21"}
-      console.log(e);
-      this.birthday = `${e.year}-${e.month}-${e.day} ${e.hour}:${e.minute}`;
+      // console.log(e);
+      // {year: "2023", month: "07", day: "11", hour: "15", minute: "21", seconds: '55'}
+      this.birthday = `${e.year}-${e.month}-${e.day} ${e.hour}:${e.minute}:${seconds}`;
     },
   },
 };
@@ -70,7 +69,29 @@ export default {
 
 ## 属性说明
 
-- `start-year`，类型 `number`，选择开始年份
-- `end-year`，类型 `number`, 选择结束年份
-- `@submit`, 类型 `function`, 监听选择事件，
-- `ref`，指定该 picker 的引用，方便打开关闭
+#### start-year
+
+类型 `Number`，选择开始年份
+
+#### end-year
+
+类型 `Number`, 选择结束年份
+
+#### time-init
+
+类型`Number`, 自定义初始时间, 默认为当前时间, 值为时间戳
+
+#### time-hidden
+
+类型 `Array`, 自定义时间列显示，默认显示年月日日分 `[true, true, true, true, true, false]`
+
+- 只显示年月日, 则可以设置为`[true, true, true, false, false, false]`
+- 时分秒, 则可以设置为`[false, false, false, true, true, true]`
+
+#### time-label
+
+类型 `Array`, 自定义各个时间单位，默认为 `['年', '月', '日', '时', '分', '秒']`, 比如想切换成显示英文的年月日, 可以设置 `['year', 'month', 'day', 'hour', 'minute', 'second']`
+
+#### @submit
+
+类型 `function`, 监听选择事件, 回调函数的第一个参数包含了选择时间的完整信息
